@@ -1,0 +1,26 @@
+nav {
+    display: flex;
+    justify-content: space-around;
+    background-color: sandybrown;
+}
+
+nav a h3 {
+    color: black; /* Color de texto predeterminado */
+}
+
+/* Estilo cuando se coloca el cursor sobre los elementos del nav */
+nav a:hover h3 {
+    color: white; /* Color de texto cuando se coloca el cursor */
+}
+
+a:first-child {
+    width: 30%; /* Ajusta el porcentaje según sea necesario */
+}
+h3:not(:first-child) {
+    width: 14%; /* El ancho restante se divide igualmente entre los elementos restantes */
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
