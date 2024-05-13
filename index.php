@@ -8,8 +8,10 @@ require 'controllers/adminController.php';
 require 'controllers/sesionController.php';
 require 'controllers/stripeController.php';
 require 'controllers/historiasController.php';
+require 'controllers/vistaHistoriasController.php';
+require 'controllers/filtrosController.php';
 
-$dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
+$dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
 
     //Ruta para mostrar el landing page
     $r->addRoute('GET', '/', [homeController::class, 'landing']);
@@ -17,8 +19,8 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
     //Ruta para mostrar la pagina nosotros
     $r->addRoute('GET', '/nosotros', [homeController::class, 'nosotros']);
 
-     //Ruta para mostrar la pagina contacto
-     $r->addRoute('GET', '/contacto', [homeController::class, 'contacto']);
+    //Ruta para mostrar la pagina contacto
+    $r->addRoute('GET', '/contacto', [homeController::class, 'contacto']);
 
     //Ruta para el login
     $r->addRoute(['GET', 'POST'], '/login', [loginController::class, 'index']);
@@ -29,13 +31,61 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
     //Ruta para mostrar las historias clinicas
     $r->addRoute(['GET', 'POST'], '/historias', [historiasController::class, 'index']);
 
+    //Ruta para crear una nueva historia general
+    $r->addRoute(['GET', 'POST'], '/nueva-historia-credenciales', [historiasController::class, 'nuevaHistoriaCredenciales']);
+
+    //Ruta para crear una nueva historia general
+    $r->addRoute(['GET', 'POST'], '/nueva-historia-general', [historiasController::class, 'nuevaHistoriaGeneral']);
+
+    //Ruta para crear una nueva historia antecedentes
+    $r->addRoute(['GET', 'POST'], '/nueva-historia-antecedentes', [historiasController::class, 'nuevaHistoriaAntecedentes']);
+
+    //Ruta para crear una nueva historia de nutricion
+    $r->addRoute(['GET', 'POST'], '/nueva-historia-nutricion', [historiasController::class, 'nuevaHistoriaNutricion']);
+
+    //Ruta para crear una nueva historia de psicologia
+    $r->addRoute(['GET', 'POST'], '/nueva-historia-psicologia', [historiasController::class, 'nuevaHistoriaPsicologia']);
+
+    //Ruta para crear una nueva historia de familiograma
+    $r->addRoute(['GET', 'POST'], '/historia-familiograma', [historiasController::class, 'nuevaHistoriaFamiliograma']);
+
+    //Ruta para crear una nueva historia de medicina
+    $r->addRoute(['GET', 'POST'], '/nueva-historia-medicina', [historiasController::class, 'nuevaHistoriaMedicina']);
+
+    //Ruta para crear una nueva historia de medicina
+    $r->addRoute(['GET', 'POST'], '/nueva-historia-clinicos', [historiasController::class, 'nuevaHistoriaClinicos']);
+
+     //Ruta para crear una nueva historia de medicina
+     $r->addRoute(['GET', 'POST'], '/historia-seguimiento', [historiasController::class, 'nuevaHistoriaSeguimiento']);
+
+    //Ruta para la vista detalle de medicina
+    $r->addRoute(['GET', 'POST'], '/vista-Generales', [vistaHistoriasController::class, 'vistaGenerales']);
+
+    //Ruta para la vista detalle de medicina
+    $r->addRoute(['GET', 'POST'], '/vista-Medicina', [vistaHistoriasController::class, 'vistaMedicina']);
+
+    //Ruta para la vista detalle de nutricion
+    $r->addRoute(['GET', 'POST'], '/vista-Nutrici%C3%B3n', [vistaHistoriasController::class, 'vistaNutricion']);
+
+     //Ruta para la vista detalle de medicina
+     $r->addRoute(['GET', 'POST'], '/vista-Psicologia', [vistaHistoriasController::class, 'vistaPsicologia']);
+
+     //Ruta para la vista detalle de medicina
+     $r->addRoute(['GET', 'POST'], '/vista-Seguimiento', [vistaHistoriasController::class, 'vistaSeguimiento']);
+
+    //Ruta para cerrar la sesión
+    $r->addRoute(['GET'], '/cerrar-sesion', [sesionController::class, 'cerrarSesion']);
+
+    //Ruta para la vista detalle de medicina
+    $r->addRoute(['GET', 'POST'], '/formulario-filtros', [filtrosController::class, 'index']);
+
+    //Ruta para la vista detalle de medicina
+    $r->addRoute(['GET', 'POST'], '/vista-filtros', [filtrosController::class, 'Vista']);
+
+
 
     $r->addRoute(['GET', 'POST'], '/paquetes', [homeController::class, 'paquetes']);
-    
 
-
-
-    
     $r->addRoute(['GET', 'POST'], '/ordenes', [ordenesController::class, 'index']);
 
     $r->addRoute(['GET', 'POST'], '/nueva-orden', [ordenesController::class, 'nuevaOrden']);
@@ -69,8 +119,6 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
     $r->addRoute(['GET', 'POST'], '/success', [stripeController::class, 'success']);
 
     $r->addRoute(['GET', 'POST'], '/cancel', [stripeController::class, 'cancel']);
-
-    $r->addRoute(['GET'], '/cerrar-sesion', [sesionController::class, 'cerrarSesion']);
 });
 
 $httpMethod = $_SERVER['REQUEST_METHOD'];

@@ -16,14 +16,14 @@
             <p> <?php error_reporting(0);
                 echo $Error; ?> </p>
         </div>
-        <form action="/login-admin" method="post">
+        <form action="/login" method="post">
             <div class="form-group">
-                <label for="usuario">Email:</label>
-                <input type="text" id="usuario" name="nombre_usuario" required />
+                <label for="usuario">Correo:</label>
+                <input type="text" id="correo" name="correo" required />
             </div>
             <div class="form-group">
                 <label for="contraseña">Contraseña:</label>
-                <input type="password" id="contrasena" name="contraseña" required />
+                <input type="password" id="contrasena" name="contrasena" required />
             </div>
             <button type="submit">Ingresar</button>
         </form>

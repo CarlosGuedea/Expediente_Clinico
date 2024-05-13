@@ -13,7 +13,7 @@ $con = $db->ConexionBD();
       $correo = $_POST['correo'];
 
       // Comprobar si el nombre de usuario o correo electrónico ya existen en la base de datos
-      $stmt = $con->prepare("SELECT * FROM Entrevistador WHERE nombre = ? OR correo = ?");
+      $stmt = $con->prepare("SELECT * FROM entrevistador WHERE nombre = ? OR email = ?");
       $stmt->bindParam(1, $nombre);
       $stmt->bindParam(2, $correo);
       $stmt->execute();
@@ -28,7 +28,7 @@ $con = $db->ConexionBD();
          try {
          
          // preparación de la consulta SQL
-         $stmt = $con->prepare("INSERT INTO Entrevistador (nombre, correo, campo_salud, contrasena) VALUES (?, ?, ?, ?)");
+         $stmt = $con->prepare("INSERT INTO entrevistador (nombre, contrasena, email, campo_salud_id, create_time, update_time) VALUES (?, ?, ?, ?, NOW(), NOW())");
          //Recuperar los valores del POST
          $nombre = $_POST['nombre'];
          $correo = $_POST['correo'];
@@ -45,9 +45,9 @@ $con = $db->ConexionBD();
 
          // asignación de valores a la consulta SQL
          $stmt->bindParam(1, $nombre);
-         $stmt->bindParam(2, $correo);
-         $stmt->bindParam(3, $campo_salud);
-         $stmt->bindParam(4, $contrasena);
+         $stmt->bindParam(2, $contrasena);
+         $stmt->bindParam(3, $correo);
+         $stmt->bindParam(4, $campo_salud);
       
          // ejecución de la consulta SQL
          $stmt->execute();

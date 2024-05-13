@@ -1,27 +1,30 @@
 <?php
 session_start();
 
+error_reporting(0);
+
 $db = new Base;
 
 $conn=$db->ConexionBD();
 
-$Email=htmlspecialchars($_POST['Email']);
-$Contrasena=htmlspecialchars($_POST['Contrasena']);
+$correo=htmlspecialchars($_POST['correo']);
+$contrasena=htmlspecialchars($_POST['contrasena']);
 
 try{
-    if(isset($_POST['Email'])){
-        $stmt = $conn->prepare("SELECT * FROM Usuario WHERE Email = :Email");
-        $stmt->bindParam(':Email', $Email);
+    if(isset($_POST['correo'])){
+        $stmt = $conn->prepare("SELECT * FROM entrevistador WHERE email = :correo");
+        $stmt->bindParam(':correo', $correo);
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
     
-        $truecontrasena=$row['Contrasena'];
+        $truecontrasena=$row['contrasena'];
     
-        if($Contrasena==$truecontrasena){
-            $id = $_SESSION['ID']=$row['ID'];
-            $usuario = $_SESSION['Usuario']=$row['Email'];
-            $_SESSION['Contrasena']=$truecontrasena;
-            header('Location: /ordenes');
+        if($contrasena===$truecontrasena){
+            $id = $_SESSION['ID']=$row['id_entrevistador'];
+            $usuario = $_SESSION['Usuario']=$row['email'];
+            $campo_salud = $_SESSION['Campo_salud'] = $row['campo_salud_id'];
+            $_SESSION['contrasena']=$truecontrasena;
+            header('Location: /historias');
     
         }
     }

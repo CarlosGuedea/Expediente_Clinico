@@ -20,4 +20,6 @@
     </footer>
 </body>
 
+<script src="<script src="https://cdn.datatables.net/v/bs5/dt-2.0.7/datatables.min.js"></script></script>
+
 </html>
